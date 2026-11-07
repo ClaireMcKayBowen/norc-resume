@@ -18,19 +18,20 @@
 \usepackage{hanging}
 
 % ----------------------------
-% Roboto font setup
+% Roboto font setup (pdfLaTeX)
 % ----------------------------
-\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} % needed for proper T1-encoded fonts in pdfLaTeX
+\usepackage[utf8]{inputenc} % harmless on modern LaTeX; helps on older setups
 \usepackage[sfdefault,light]{roboto}
 
-% Make Roboto the default font throughout the document
-\renewcommand{\familydefault}{\sfdefault}
-
-% Roboto weight commands
-\newcommand{\RobotoThin}[1]{\robotoThin{#1}}
-\newcommand{\RobotoLight}[1]{\robotoLight{#1}}
-\newcommand{\RobotoRegular}[1]{\robotoRegular{#1}}
-\newcommand{\RobotoBold}[1]{\robotoBold{#1}}
+% The roboto package doesn't define \robotoThin/\robotoLight/etc. on all setups.
+% Define them as NFSS font-series switches so your macros compile under pdfLaTeX.
+\providecommand{\robotoThin}{\fontseries{t}\selectfont}
+\providecommand{\robotoLight}{\fontseries{l}\selectfont}
+\providecommand{\robotoRegular}{\fontseries{m}\selectfont}
+\providecommand{\robotoMedium}{\fontseries{mb}\selectfont}
+\providecommand{\robotoBold}{\bfseries}
+\providecommand{\robotoBlack}{\fontseries{k}\selectfont}
 
 % ----------------------------
 % Colors (approx. NORC brand)
@@ -87,8 +88,8 @@
 \newcommand{\NameBlock}[2]{%
   {\fontsize{35}{39}\selectfont
    \color{NORCOrange}
-   \RobotoThin{#1}\par}
-  {\fontsize{10}{0}\RobotoBold{#2}\par}
+   \robotoThin{#1}\par}
+  {\fontsize{10}{0}\robotoBold{#2}\par}
 }
 
 \titleformat{\section}
@@ -100,10 +101,10 @@
   {0pt}{24pt}{6pt}
 
 \newcommand{\Project}[3]{%
-    {\RobotoBold{#1}\par}
-    {\RobotoRegular\itshape{\textit{#2}}\par}
+    {\robotoBold{#1}\par}
+    {\robotoRegular\itshape{\textit{#2}}\par}
     \vspace{6pt}
-    {\RobotoLight{#3}\par}
+    {\robotoLight{#3}\par}
     \vspace{12pt}
 }
 
@@ -112,18 +113,18 @@
     {\color{NORCOrange}\rule{0.35in}{2.5pt}}\par
     \vspace{6pt}
     {\fontsize{14}{12}\selectfont
-    \color{NORCOrange}\RobotoBold{#1}\par}
+    \color{NORCOrange}\robotoBold{#1}\par}
     \vspace{12pt}
 }
 
 \newcommand{\Degree}[2]{%
-  {\RobotoBold{#1}\par}
-  {\RobotoLight\small #2\par}
+  {\robotoBold{#1}\par}
+  {\robotoLight\small #2\par}
   \vspace{12pt}
 }
 
 \newcommand{\SkillGroup}[2]{%
-  {\RobotoBold{#1}}\par
+  {\robotoBold{#1}}\par
   \begin{itemize}[leftmargin=*]
     #2
   \end{itemize}
